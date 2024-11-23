@@ -3,7 +3,7 @@
     "path": "/Users/muzi131313/code/test/email-remind",
     "branch": "master",
     "installScript": "yarn",
-    "updateScript": "yarn add @manage/browser-update@1.4.0-alpha.21",
-    "commit": "feat(app-web): add @manage/browser-update@1.4.0-alpha.21"
+    "updateScript": "yarn add @manage/login@1.4.0-alpha.21",
+    "commit": "feat(app-web): add @manage/login@1.4.0-alpha.21"
   }
 ]
