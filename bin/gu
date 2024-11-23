@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+const { Command } = require('commander');
+const fs = require('fs');
+const path = require('path');
+const GU = require('../src/index.js');
+const Log = require('../src/utils/log.js');
+
+// get the path of package.json
+const packagePath = path.resolve(__dirname, '../package.json');
+const packageInfo = JSON.parse(fs.readFileSync(packagePath));
+
+const program = new Command();
+
+// set version
+program.version(packageInfo.version);
+
+// config command
+program
+  .requiredOption('-c, --config <config>', 'Config file path (required)')
+  .option('-d, --debug', 'Enable debug mode')
+  .action((options) => {
+    const { debug = false, config } = options;
+
+    // set debug mode
+    Log.debug = debug;
+    if (debug) {
+      console.log('[gu] Debug mode enabled');
+      console.log('[gu] Options:', options);
+    }
+
+    // execute gu
+    if (config) {
+      GU.readConfig(config);
+    }
+  });
+
+// parse arguments
+program.parse(process.argv);
+
+// show help if no arguments
+if (!process.argv.slice(2).length) {
+  program.help();
+}

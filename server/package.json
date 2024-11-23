@@ -1,0 +1,21 @@
+{
+  "name": "git-update-server",
+  "version": "1.0.0",
+  "description": "git update server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "muzi131313 <muzi131313@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.10",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
+    "eslint": "^8.56.0"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "git-update-tool",
+  "version": "0.0.1",
+  "description": "git update tool for many projects",
+  "main": "index.js",
+  "bin": {
+    "gu": "./bin/gu"
+  },
+  "scripts": {
+    "postversion": "git push origin --tag",
+    "prepublishOnly": "node ./build/release.js",
+    "release": "standard-version",
+    "pub": "git push --follow-tags origin master && npm publish",
+    "p": "npm run release && npm run pub",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:muzi131313/git-update-tool.git"
+  },
+  "author": "muzi131313 <muzi131313@163.com>",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run prepublishOnly"
+    }
+  },
+  "dependencies": {
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "fs": "0.0.1-security",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "path": "^0.12.7",
+    "semver": "^7.5.4",
+    "standard-version": "^9.5.0"
+  }
+}
