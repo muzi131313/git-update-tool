@@ -63,17 +63,19 @@ const delMenu = async () => {
 .right-menu {
   position: fixed;
   z-index: 2;
-  width: 60px;
   height: 200px;
   background-color: #fff;
   list-style: none;
   margin: 0;
   padding: 0;
   border: 1px solid #ddd;
+  color: #000;
   li {
     height: 30px;
     line-height: 30px;
     border-bottom: 1px solid #ddd;
+    padding-left: 8px;
+    padding-right: 8px;
     cursor: pointer;
     text-align: center;
     &:hover {
