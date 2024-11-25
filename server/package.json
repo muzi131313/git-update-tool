@@ -4,6 +4,7 @@
   "description": "git update server",
   "main": "index.js",
   "scripts": {
+    "dev": "node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "muzi131313 <muzi131313@163.com>",
