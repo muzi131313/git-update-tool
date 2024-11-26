@@ -1,6 +1,6 @@
 const log = {};
 
-log.debug = false;
+log.debug = process.env.DEBUG === 'true';
 
 log.log = function log() {
   if (log.debug) {
