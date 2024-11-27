@@ -13,15 +13,15 @@ const GuEntry = {
       Log.warn('[gu] config is null');
       return;
     }
-    await GuEntry.executeBashWithJson(configData);
+    GuEntry.executeBashWithJson(configData);
   },
   /**
    *
    * @param {Array<String>} jsonData json array
    */
-  async executeBashWithJson(jsonData) {
+  executeBashWithJson: async (jsonData, callback) => {
     for (let i = 0; i < jsonData.length; i++) {
-      await Bash.executeBashItem(jsonData[i]);
+      await Bash.executeBashItem(jsonData[i], callback)
     }
   },
 }

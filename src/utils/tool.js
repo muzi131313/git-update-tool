@@ -1,6 +1,6 @@
-const path = require('path');
+// const path = require('path');
 const fs = require('fs');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 
 const Log = require('./log.js');
 
@@ -29,36 +29,65 @@ function readFile(filePath) {
  * @param {String} command command
  * @created 2024-11-23 11:37:59
  */
-function execCommand(command) {
+function execCommand(command, callback) {
+  Log.log('[debug] command: ', command);
   return new Promise((resolve, reject) => {
     try {
-      exec(command, (err, stdout, stderr) => {
-        if (err) {
-          Log.error('execute err\n', stderr);
-          reject({
-            done: false,
-            err,
-          });
-          return;
-        }
-        if (stderr) {
-          Log.error('execute error\n', stderr);
-          reject({
-            done: false,
-            err: stderr,
-          });
-          return;
-        }
-        Log.info('execute result\n', stdout);
-        resolve({
-          done: true,
-          data: stdout,
-          err,
+      const bashCommand = spawn('bash', ['-c', command]);
+      bashCommand.stdout.on('data', (data) => {
+        Log.info('stdout: ', data.toString());
+        callback && callback({
+          type: 'stdout',
+          data: data.toString(),
         });
       });
+      bashCommand.stderr.on('data', (data) => {
+        Log.error('stderr: ', data.toString());
+        callback && callback({
+          type: 'stderr',
+          data: data.toString(),
+        });
+      });
+      bashCommand.on('close', (code) => {
+        console.log(`Process exited with code ${code}`);
+        callback && callback({
+          type: 'close',
+          data: code,
+        });
+        resolve({
+          done: true,
+          data: code,
+        });
+      });
+      // exec(command, (err, stdout, stderr) => {
+      //   if (err) {
+      //     Log.error('execute err\n', stderr);
+      //     reject({
+      //       done: false,
+      //       err,
+      //     });
+      //     return;
+      //   }
+      //   if (stderr) {
+      //     Log.error('execute error\n', stderr);
+      //     reject({
+      //       done: false,
+      //       err: stderr,
+      //     });
+      //     return;
+      //   }
+      //   Log.info('execute result\n', stdout);
+      //   resolve({
+      //     done: true,
+      //     data: stdout,
+      //     err,
+      //   });
+      // });
     } catch (e) {
-      console.error(e);
+      Log.error('catch error: ', e);
     }
+  }).catch((e) => {
+    Log.error('promise catch error: ', e);
   });
 }
 

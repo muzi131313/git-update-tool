@@ -2,17 +2,17 @@ const Tool = require('../utils/tool');
 const Log = require('../utils/log');
 
 const Bash = {
-  executeBashItem: (json) => {
-    Log.log('[debug] json: ', json);
+  executeBashItem: async (json, callback) => {
+    Log.log('[debug] json: ', json, callback);
     if (!json) {
       console.warn('[bash] json is null');
       return '';
     }
     const pathBranchBash = Bash.generateChangePathAndTarget(json);
-    Bash.executeBash(pathBranchBash);
+    await Bash.executeBash(pathBranchBash, callback);
   },
   generateChangePathAndTarget: (json) => {
-    const { path, branch, envScript, installScript, updateScript, commit } = json;
+    const { path, branch, envScript, installScript, updateScript, beforeCommit, commit } = json;
     const template = `
     # 1. change to target path
     cd ${path} && pwd
@@ -33,14 +33,16 @@ const Bash = {
     # 5. update dependencies
     ${updateScript}
 
-    # 6. add commit msg and push to remote branch
-    git add .
-    HUSKY_SKIP_HOOKS=1 git commit -m "${commit}"
+    # 6.1 before commit
+
+    # 6.2 add commit msg and push to remote branch
+    ${beforeCommit ? `${beforeCommit} && ` : ''}git add .
+    ${beforeCommit ? `${beforeCommit} && ` : ''}HUSKY_SKIP_HOOKS=1 git commit -m "${commit}"
     git push
     `;
     return template;
   },
-  executeBash: (bashString) => {
+  executeBash: async (bashString, callback) => {
     const bash = `
     # support nvm
     source ~/.nvm/nvm.sh;
@@ -50,7 +52,7 @@ const Bash = {
     `
     try {
       Log.log('[bash] bash: ', bash)
-      Tool.execCommand(bash);
+      await Tool.execCommand(bash, callback);
     } catch (e) {
       Log.error('[bash] error: ', e);
     }
