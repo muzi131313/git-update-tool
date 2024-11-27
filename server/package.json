@@ -4,7 +4,8 @@
   "description": "git update server",
   "main": "index.js",
   "scripts": {
-    "dev": "DEBUG=true node src/index.ts",
+    "dev": "NODE_ENV=development nodemon src/index.js",
+    "dev:once": "DEBUG=true node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "muzi131313 <muzi131313@163.com>",
@@ -17,6 +18,9 @@
     "@types/node": "^20.11.10",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
-    "eslint": "^8.56.0"
+    "eslint": "^8.56.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }
