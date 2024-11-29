@@ -63,15 +63,15 @@ export const useIO = () => {
   const emit = (json: object) => {
     socket.timeout(SOCKET_TIMEOUT).emit('request', json, (err: string, response: any) => {
       console.log('[debug] response: ', response, err);
-      if (err) {
-        console.error(err);
+      const status = response?.status;
+      if (err || status === 'error') {
         // the server did not acknowledge the event in the given delay
         eventBus.emit(EventType.message, {
           type: MessageType.Red,
-          message: err,
+          message: response.message,
         });
       } else {
-        console.log(response.status); // 'ok'
+        console.log(status); // 'ok'
         eventBus.emit(EventType.message, {
           type: MessageType.Green,
           message: 'finish executing command',
