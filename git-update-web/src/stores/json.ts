@@ -24,11 +24,16 @@ export const useJsonStore = defineStore('json', {
   actions: {
     async init() {
       const keys = await getKeys();
+      this.updateKeys(keys);
+      return keys;
+    },
+    updateKeys(keys: object) {
       this.keys = keys;
     },
     async setJSON(value: string, json: any) {
       await addKey(value, json);
-      this.keys = await getKeys();
+      const keys = await getKeys();
+      this.updateKeys(keys);
     },
     async updateJSON(json: any) {
       const key = this.currentKey;
@@ -52,7 +57,8 @@ export const useJsonStore = defineStore('json', {
     },
     async updateInputByKey(key: string, value: string) {
       await updateKey(key, value);
-      this.keys = await getKeys();
+      const keys = await getKeys();
+      this.updateKeys(keys);
       this.setSelectKey('');
     },
     async delByKey(key: string) {
@@ -61,7 +67,8 @@ export const useJsonStore = defineStore('json', {
       }
       await removeKey(key);
       await removeJSON(key);
-      this.keys = await getKeys();
+      const keys = await getKeys();
+      this.updateKeys(keys);
     },
     async getJSONByKey(key: string) {
       return await getJSON(key);

@@ -37,7 +37,7 @@ const jsonChange = (json: string) => {
   jsonStore.updateJSON(json);
 }
 const handleReady = () => {
-  console.log('ready');
+  console.log('[json] ready');
 }
 </script>
 

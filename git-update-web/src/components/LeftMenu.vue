@@ -38,10 +38,17 @@ const menuItems = computed(() => {
   });
 });
 
-jsonStore.init();
+const updateCurrentKey = key => {
+  jsonStore.setCurrentKey(key);
+};
+
+jsonStore.init().then((keys) => {
+  const _keys = Object.keys(keys);
+  if (_keys?.length) updateCurrentKey(_keys[0]);
+});
 
 const selectMenuItem = (item: MenuItem) => {
-  jsonStore.setCurrentKey(item.id);
+  updateCurrentKey(item.id);
 };
 </script>
 
