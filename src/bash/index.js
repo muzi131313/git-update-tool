@@ -1,18 +1,44 @@
 const Tool = require('../utils/tool');
 const Log = require('../utils/log');
+const { JSONKeys } = require('../utils/constant');
 
 const Bash = {
+  invalidateJSON: (json) => {
+    return RequireJSONKeys.some((key) => {
+      const jsonItem = json[key];
+      return jsonItem === undefined || jsonItem === null || jsonItem?.trim() === '';
+    });
+  },
   executeBashItem: async (json, callback) => {
-    Log.log('[debug] json: ', json, callback);
     if (!json) {
-      console.warn('[bash] json is null');
-      return '';
+      Log.warn('[bash] json is empty');
+      callback && callback({
+        type: MsgType.Error,
+        data: 'json is empty',
+      });
+      return;
     }
+    const invalidate = Bash.invalidateJSON(json);
+    if (invalidate) {
+      callback && callback({
+        type: MsgType.Error,
+        data: 'json is invalidate',
+      });
+      return;
+    }
+    Log.log('[debug] json: ', json);
     const pathBranchBash = Bash.generateChangePathAndTarget(json);
     await Bash.executeBash(pathBranchBash, callback);
   },
   generateChangePathAndTarget: (json) => {
-    const { path, branch, envScript, installScript, updateScript, beforeCommit, commit } = json;
+    const path = json[JSONKeys.path];
+    const branch = json[JSONKeys.branch];
+    const envScript = json[JSONKeys.envScript];
+    const installScript = json[JSONKeys.installScript];
+    const updateScript = json[JSONKeys.updateScript];
+    const beforeCommit = json[JSONKeys.beforeCommit];
+    const commit = json[JSONKeys.commit];
+
     const template = `
     # 1. change to target path
     cd ${path} && pwd

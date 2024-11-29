@@ -3,6 +3,7 @@ const fs = require('fs');
 const { spawn } = require('child_process');
 
 const Log = require('./log.js');
+const { MsgType } = require('./constant.js');
 
 const tools = {};
 
@@ -37,21 +38,21 @@ function execCommand(command, callback) {
       bashCommand.stdout.on('data', (data) => {
         Log.info('stdout: ', data.toString());
         callback && callback({
-          type: 'stdout',
+          type: MsgType.Log,
           data: data.toString(),
         });
       });
       bashCommand.stderr.on('data', (data) => {
         Log.error('stderr: ', data.toString());
         callback && callback({
-          type: 'stderr',
+          type: MsgType.Error,
           data: data.toString(),
         });
       });
       bashCommand.on('close', (code) => {
         console.log(`Process exited with code ${code}`);
         callback && callback({
-          type: 'close',
+          type: MsgType.Close,
           data: code,
         });
         resolve({
