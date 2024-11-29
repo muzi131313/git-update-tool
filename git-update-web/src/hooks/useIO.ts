@@ -66,8 +66,16 @@ export const useIO = () => {
       if (err) {
         console.error(err);
         // the server did not acknowledge the event in the given delay
+        eventBus.emit(EventType.message, {
+          type: MessageType.Red,
+          message: err,
+        });
       } else {
         console.log(response.status); // 'ok'
+        eventBus.emit(EventType.message, {
+          type: MessageType.Green,
+          message: 'finish executing command',
+        });
       }
     });
   }
