@@ -1,6 +1,6 @@
 const Tool = require('../utils/tool');
 const Log = require('../utils/log');
-const { JSONKeys } = require('../utils/constant');
+const { JSONKeys, RequireJSONKeys } = require('../utils/constant');
 
 const Bash = {
   invalidateJSON: (json) => {
