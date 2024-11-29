@@ -38,11 +38,11 @@ const menuItems = computed(() => {
   });
 });
 
-const updateCurrentKey = key => {
+const updateCurrentKey = (key: string) => {
   jsonStore.setCurrentKey(key);
 };
 
-jsonStore.init().then((keys) => {
+jsonStore.init().then((keys: object) => {
   const _keys = Object.keys(keys);
   if (_keys?.length) updateCurrentKey(_keys[0]);
 });
