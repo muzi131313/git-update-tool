@@ -51,7 +51,8 @@ const handleReady = () => {
   }
   .output-content {
     width: 100%;
-    height: 432px;
+    overflow-y: scroll;
+    max-height: 390px;
   }
 }
 </style>
