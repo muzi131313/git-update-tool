@@ -20,13 +20,14 @@ const Bash = {
     }
     const invalidate = Bash.invalidateJSON(json);
     if (invalidate) {
+      Log.error('[bash] json is invalidate');
       callback && callback({
         type: MsgType.Error,
         data: 'json is invalidate',
       });
       return;
     }
-    Log.log('[debug] json: ', json);
+    Log.log('[bash] execute json: ', json);
     const pathBranchBash = Bash.generateChangePathAndTarget(json);
     await Bash.executeBash(pathBranchBash, callback);
   },
