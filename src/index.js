@@ -1,9 +1,19 @@
 const Gu = require('./utils/tool.js');
 const Bash = require('./bash/index.js');
 const Log = require('./utils/log.js');
+const Tool = require('./utils/tool.js');
 const { MsgType } = require('./utils/constant.js');
 
 const GuEntry = {
+  start() {
+    Tool.execCommand('sh ./build/start.sh');
+  },
+  list() {
+    Tool.execCommand('sh ./build/list.sh');
+  },
+  remove() {
+    Tool.execCommand('sh ./build/remove.sh');
+  },
   /**
    *
    * @param {String} filePath config file path

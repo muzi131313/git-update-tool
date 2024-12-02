@@ -17,10 +17,13 @@ program.version(packageInfo.version);
 
 // config command
 program
-  .requiredOption('-c, --config <config>', 'Config file path (required)')
+  .option('-c, --config <config>', 'Config file path')
   .option('-d, --debug', 'Enable debug mode')
+  .option('-s, --start', 'start git update web service')
+  .option('-l, --list', 'list git update web service')
+  .option('-r, --remove', 'remove git update web service')
   .action((options) => {
-    const { debug = false, config } = options;
+    const { debug = false, config, start, list, remove } = options;
 
     // set debug mode
     Log.debug = debug;
@@ -32,6 +35,18 @@ program
     // execute gu
     if (config) {
       GU.readConfig(config);
+    }
+
+    if (start) {
+      GU.start();
+    }
+
+    if (list) {
+      GU.list();
+    }
+
+    if (remove) {
+      GU.remove();
     }
   });
 

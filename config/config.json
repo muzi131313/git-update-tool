@@ -4,6 +4,6 @@
     "branch": "master",
     "installScript": "yarn",
     "updateScript": "yarn add @manage/login@1.4.0-alpha.21",
-    "commit": "feat(app-web): add @manage/login@1.4.0-alpha.21"
+    "commit": "feat(app): add @manage/login@1.4.0-alpha.21"
   }
 ]

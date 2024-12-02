@@ -1,0 +1,4 @@
+dist
+logs/*.log
+logs/*.err
+logs/*.out

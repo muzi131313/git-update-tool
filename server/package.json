@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "dev:debug": "DEBUG=true node src/index.js",
-    "start": "forever start forever.json",
-    "stop": "forever stop git-update-server",
+    "start": "forever start src/index.js",
+    "stop": "forever stop src/index.js",
     "list": "forever list"
   },
   "author": "muzi131313 <muzi131313@163.com>",

@@ -8,10 +8,14 @@
   },
   "scripts": {
     "postversion": "git push origin --tag",
-    "prepublishOnly": "node ./build/release.js",
-    "release": "standard-version",
-    "pub": "git push --follow-tags origin master && npm publish",
-    "p": "npm run release && npm run pub",
+    "v:major": "npx standard-version --release-as major",
+    "v:minor": "npx standard-version --release-as minor",
+    "v:patch": "npx standard-version --release-as patch",
+    "v": "npx standard-version --release-as major",
+    "pub:major": "sh build/build.sh && yarn v:major && git push --follow-tags && npm publish",
+    "pub:minor": "sh build/build.sh && yarn v:minor && git push --follow-tags && npm publish",
+    "pub:patch": "sh build/build.sh && yarn v:patch && git push --follow-tags && npm publish",
+    "pub": "yarn pub:patch",
     "test": "jest"
   },
   "repository": {
@@ -20,11 +24,6 @@
   },
   "author": "muzi131313 <muzi131313@163.com>",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run prepublishOnly"
-    }
-  },
   "dependencies": {
     "commander": "^11.1.0"
   },
