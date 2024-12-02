@@ -4,9 +4,11 @@
   "description": "git update server",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon src/index.js",
-    "dev:once": "DEBUG=true node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js",
+    "dev:debug": "DEBUG=true node src/index.js",
+    "start": "forever start forever.json",
+    "stop": "forever stop git-update-server",
+    "list": "forever list"
   },
   "author": "muzi131313 <muzi131313@163.com>",
   "license": "MIT",
@@ -19,6 +21,7 @@
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
+    "forever": "^4.0.3",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"

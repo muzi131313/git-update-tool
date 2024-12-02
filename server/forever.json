@@ -1,0 +1,10 @@
+[
+  {
+    "uid": "git-update-server",
+    "script": "src/index.js",
+    "args": [],
+    "logFile": "./logs/my-service.log",
+    "outFile": "./logs/my-service.out",
+    "errFile": "./logs/my-service.err"
+  }
+]
