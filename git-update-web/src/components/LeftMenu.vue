@@ -77,9 +77,11 @@ const selectMenuItem = (item: MenuItem) => {
     .select-menu {
       position: absolute;
       right: 12px;
-      top: 8px;
+      top: 10px;
       width: 18px;
       display: none;
+      width: 14px;
+      height: 14px;
     }
   }
 
