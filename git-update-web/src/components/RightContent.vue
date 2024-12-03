@@ -1,7 +1,7 @@
 <template>
   <div class="right-content">
     <div class="edit-content">
-      <codemirror
+      <Codemirror
         v-model="jsonString"
         placeholder="JSON input here..."
         :style="{ height: '100%' }"
