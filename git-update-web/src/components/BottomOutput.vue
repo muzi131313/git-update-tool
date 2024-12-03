@@ -4,6 +4,7 @@
 <script lang="ts" setup>
 import eventBus from '@/hooks/useEventBus';
 import { EventType, MessageType, type BackgroundType, type ColorType, type MessageItem } from '@/interface.d';
+import { Welcome } from '@/utils/constant';
 import { onMounted, ref } from 'vue';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css'; // 引入样式
@@ -40,12 +41,11 @@ const writeMessage = (message: string, type: MessageType = MessageType.White) =>
       writeColoredText(terminal, message, null, null);
       break;
   }
-  // terminal.write(message);
 }
 
 const initTerminal = () => {
   terminal.open(terminalRef.value);
-  writeMessage("Hello, welcome to the Vue xterm.js terminal!\r\n");
+  writeMessage(`${Welcome} terminal!\r`);
 }
 const initEvent = () => {
   eventBus.on(EventType.message, (message: unknown) => {

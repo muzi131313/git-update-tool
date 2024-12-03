@@ -4,3 +4,5 @@ export enum ThemeColor {
 }
 
 export const ThemeColorKey = 'theme-color';
+
+export const Welcome = 'Welcome to Git Update';

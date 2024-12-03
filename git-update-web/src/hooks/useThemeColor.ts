@@ -1,4 +1,5 @@
-import { ThemeColor, ThemeColorKey } from "@/types/theme-color";
+import { ThemeColor, ThemeColorKey } from '@/utils/constant';
+
 
 export const useThemeColor = () => {
   const getRootDom = () => document.documentElement;
