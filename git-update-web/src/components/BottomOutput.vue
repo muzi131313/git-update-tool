@@ -3,6 +3,7 @@
 </template>
 <script lang="ts" setup>
 import eventBus from '@/hooks/useEventBus';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { EventType, MessageType, type BackgroundType, type ColorType, type MessageItem } from '@/interface.d';
 import { Welcome } from '@/utils/constant';
 import { onMounted, ref } from 'vue';
@@ -11,12 +12,19 @@ import 'xterm/css/xterm.css'; // 引入样式
 
 const terminalRef = ref();
 
+const { isDarkMode } = useThemeColor();
+
+const isDark = isDarkMode();
+
+const background = isDark ? '#000000' : '#ffffff';
+const foreground = isDark ? '#ffffff' : '#000000';
+
 const terminal = new Terminal({
   cols: 80,
   rows: 24,
   theme: {
-    background: "#000000",
-    foreground: "#ffffff",
+    background,
+    foreground,
   },
 });
 

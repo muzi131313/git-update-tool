@@ -53,6 +53,7 @@ const handleReady = () => {
     width: 100%;
     overflow-y: scroll;
     max-height: 390px;
+    border-top: 1px solid var(--vt-c-divider);
   }
 }
 </style>

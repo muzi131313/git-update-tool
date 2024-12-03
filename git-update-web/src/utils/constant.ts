@@ -1,6 +1,6 @@
 export enum ThemeColor {
-  Dark = 'dark-theme',
-  Light = 'light-theme',
+  Dark = 'dark',
+  Light = 'light',
 }
 
 export const ThemeColorKey = 'theme-color';
