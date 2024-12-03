@@ -55,8 +55,9 @@ const selectMenuItem = (item: MenuItem) => {
 <style lang="scss" scoped>
 .left-menu {
   width: 200px;
-  background-color: #f2f2f2;
-  border-right: 1px solid gainsboro;
+  background: var(--vt-c-bg);
+  box-shadow: var(--vt-shadow-3);
+  border-right: 1px solid var(--vt-c-divider);
 }
 
 .menus {
@@ -64,10 +65,9 @@ const selectMenuItem = (item: MenuItem) => {
   padding: 0;
   margin: 0;
   li {
-    color: #000;
     padding: 4px 12px;
     cursor: pointer;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--vt-c-divider-light);
     position: relative;
     &.active {
       .select-menu {
@@ -86,7 +86,7 @@ const selectMenuItem = (item: MenuItem) => {
   }
 
   li:hover {
-    background-color: #e6e6e6;
+    background-color: var(--vt-c-bg-soft);
   }
 }
 
