@@ -1,4 +1,4 @@
-import { onMounted, onBeforeUnmount, ref } from "vue"
+import { onMounted, onBeforeUnmount, ref } from 'vue';
 
 export const useRightMenu = (domSign?: string) => {
   const pageX = ref(0);
@@ -8,7 +8,7 @@ export const useRightMenu = (domSign?: string) => {
 
   const updateShow = (value: boolean) => {
     show.value = value;
-  }
+  };
 
   const handleContextMenu = (e: MouseEvent) => {
     if (e.button !== 2) {
@@ -30,7 +30,7 @@ export const useRightMenu = (domSign?: string) => {
     if (target && target.dataset && target.dataset.id) {
       selectId.value = target.dataset.id;
     }
-  }
+  };
 
   onMounted(() => {
     document.addEventListener('contextmenu', handleContextMenu);
@@ -49,6 +49,6 @@ export const useRightMenu = (domSign?: string) => {
     show,
     selectId,
     pageX,
-    pageY,
-  }
-}
+    pageY
+  };
+};
