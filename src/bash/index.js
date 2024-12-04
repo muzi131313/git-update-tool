@@ -47,8 +47,10 @@ const Bash = {
 
     # 2. change to target branch
     echo "will execute: git stash && git checkout ${branch}"
+    # execute stash to save current changes
     git stash
     git checkout ${branch}
+    # pull latest code
     git pull
 
     # 3. env change(eg: change node version to 16.15.1 when current node version is 14.19.3)
@@ -71,8 +73,9 @@ const Bash = {
   },
   executeBash: async (bashString, callback) => {
     const bash = `
-    # support nvm
-    source ~/.nvm/nvm.sh;
+    # load nvm
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     echo "nvm: " && nvm --version;
 
     ${bashString}
