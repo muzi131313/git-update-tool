@@ -26,16 +26,33 @@ import { json as Json } from '@codemirror/lang-json'
 import { useJsonStore } from '@/stores/json';
 import { storeToRefs } from 'pinia';
 import BottomOutput from './BottomOutput.vue';
+import { oneDark } from '@codemirror/theme-one-dark'
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 const jsonStore = useJsonStore();
 const { jsonString } = storeToRefs(jsonStore);
-const extensions = ref([
-  Json(),
-]);
+
+const { isDarkMode } = useThemeColor();
+
+
+const initExtensions = () => {
+  const isDark = isDarkMode();
+  if (isDark) {
+    return [
+      Json(),
+      oneDark,
+    ]
+  }
+  return [
+    Json(),
+  ];
+}
+
+const extensions = ref<any[]>(initExtensions());
 
 const jsonChange = (json: string) => {
   jsonStore.updateJSON(json);
-}
+};
 const handleReady = () => {
   console.log('[json] ready');
 }
