@@ -8,6 +8,13 @@ export enum MessageType {
   White = 'white',
 }
 
+export enum MenuMessageItemType {
+  create = 'Create',
+  rename = 'Rename',
+  delete = 'Delete',
+  execute = 'Execute',
+}
+
 export enum StdType {
   stdout = 'stdout',
   stderr = 'stderr',
@@ -16,6 +23,10 @@ export enum StdType {
 
 export type ColorType = number | null | undefined;
 export type BackgroundType = number | null | undefined;
+
+export interface MenuMessageItem {
+  type: MenuMessageItemType;
+}
 
 export interface MessageItem {
   type: MessageType;
@@ -35,4 +46,5 @@ export const Msgs = {
 
 export enum EventType {
   message = 'message',
+  menu = 'menu',
 }

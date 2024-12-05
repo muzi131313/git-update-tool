@@ -35,6 +35,7 @@ initThemeColor();
   display: flex;
   flex-direction: column;
   .content-container {
+    position: relative;
     display: grid;
     grid-template-rows: calc(100vh - 32px) 1fr;
     grid-template-columns: 200px 1fr;

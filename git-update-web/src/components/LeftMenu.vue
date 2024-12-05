@@ -10,7 +10,7 @@
         <img src="../assets/select.svg" class="select-menu" />
       </li>
     </ul>
-    <RightMenu></RightMenu>
+    <RightMenu @reSelect="reSelect"></RightMenu>
   </div>
 </template>
 
@@ -20,6 +20,7 @@ import { computed } from 'vue';
 import RightMenu from './RightMenu.vue';
 
 import { useJsonStore } from '@/stores/json';
+import { useMenuStore } from '@/stores/menu';
 
 interface MenuItem {
   id: string;
@@ -40,16 +41,27 @@ const menuItems = computed(() => {
 
 const updateCurrentKey = (key: string) => {
   jsonStore.setCurrentKey(key);
+  useMenuStore().updateSelectId(key);
 };
 
-jsonStore.init().then((keys: object) => {
-  const _keys = Object.keys(keys);
-  if (_keys?.length) updateCurrentKey(_keys[0]);
-});
+const jsonInit = () => {
+  jsonStore.init().then((keys: object) => {
+    const _keys = Object.keys(keys);
+    if (_keys?.length) {
+      updateCurrentKey(_keys[0]);
+    }
+  });
+};
+
+const reSelect = () => {
+  jsonInit();
+};
 
 const selectMenuItem = (item: MenuItem) => {
   updateCurrentKey(item.id);
 };
+
+jsonInit();
 </script>
 
 <style lang="scss" scoped>

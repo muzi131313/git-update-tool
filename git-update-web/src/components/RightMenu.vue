@@ -7,18 +7,24 @@
   </ul>
 </template>
 <script lang="ts" setup>
-import { watch, computed } from 'vue';
+import { computed } from 'vue';
 
 import { useRightMenu } from '@/hooks/useRightMenu';
 import { useIO } from '@/hooks/useIO';
 import { useInputStore } from '@/stores/input';
 import { useJsonStore } from '@/stores/json';
+import eventBus from '@/hooks/useEventBus';
+import { EventType, type MenuMessageItem, MenuMessageItemType } from '@/interface.d';
+import { useMenuStore } from '@/stores/menu';
 
 const inputStore = useInputStore();
 const jsonStore = useJsonStore();
 const io = useIO();
+const selectId = computed(() => useMenuStore().selectId);
 
-const { pageX, pageY, show: menuShow, selectId } = useRightMenu('.left-menu');
+const emits = defineEmits(['reSelect']);
+
+const { pageX, pageY, show: menuShow } = useRightMenu('.left-menu');
 const rightMenuStyle = computed(() => {
   return {
     left: `${pageX.value}px`,
@@ -26,12 +32,27 @@ const rightMenuStyle = computed(() => {
   };
 });
 
-watch(() => menuShow.value, val => {
-  console.log('[debug] val: ', val);
+eventBus.on(EventType.menu, (message: unknown) => {
+  const messageItem = message as MenuMessageItem;
+  switch (messageItem.type) {
+    case MenuMessageItemType.create:
+      createMenu();
+      break;
+    case MenuMessageItemType.rename:
+      renameMenu();
+      break;
+    case MenuMessageItemType.delete:
+      delMenu();
+      break;
+    case MenuMessageItemType.execute:
+      executeMenu();
+      break;
+    default:
+      break;
+  }
 })
 
 const executeMenu = async () => {
-  console.log('[debug] execute...');
   if (!selectId.value) {
     console.warn('[warn] selectId is empty');
     return;
@@ -49,7 +70,7 @@ const renameMenu = async () => {
     return;
   }
   await jsonStore.setSelectKey(selectId.value);
-  inputStore.updateShow(true);
+  inputStore.updateShow(true, true);
 }
 const delMenu = async () => {
   if (!selectId.value) {
@@ -57,6 +78,7 @@ const delMenu = async () => {
     return;
   }
   await jsonStore.delByKey(selectId.value);
+  emits('reSelect');
 }
 </script>
 <style lang="scss" scoped>
