@@ -70,6 +70,7 @@ const selectMenuItem = (item: MenuItem) => {
     border-bottom: 1px solid var(--vt-c-divider-light);
     position: relative;
     &.active {
+      background-color: var(--vt-c-bg-mute) !important;
       .select-menu {
         display: block;
       }
