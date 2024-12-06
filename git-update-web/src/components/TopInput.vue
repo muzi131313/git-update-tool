@@ -69,14 +69,17 @@ onMounted(() => {
   left: 200px;
   display: flex;
   align-items: center;
-  width: 220px;
+  width: 240px;
   height: 30px;
-  background-color: #f2f2f2;
-  border: 1px solid #aeaed8;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
   input {
     border-width: 0;
     height: 100%;
     flex: 1;
+    background-color: var(--vt-c-bg);
+    color: var(--vt-c-text-1);
+    outline: none;
   }
   button {
     border-width: 0;
