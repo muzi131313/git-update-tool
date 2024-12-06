@@ -112,8 +112,6 @@ const delMenu = async () => {
 .right-menu {
   position: fixed;
   z-index: 2;
-  height: 200px;
-  // background-color: #fff;
   background-color: var(--color-background-soft);
   list-style: none;
   margin: 0;

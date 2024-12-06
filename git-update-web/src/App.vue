@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" :style="appStyle">
     <header>
       <TopBar></TopBar>
     </header>
@@ -21,12 +21,19 @@ import TopInput from './components/TopInput.vue';
 import TopBar from './components/TopBar.vue';
 import { useInputStore } from '@/stores/input';
 import { useThemeColor } from './hooks/useThemeColor';
+import { computed } from 'vue';
 
 const inputStore = useInputStore();
 const { show } = storeToRefs(inputStore);
 
 const { initThemeColor } = useThemeColor();
 initThemeColor();
+
+const appStyle = computed(() => {
+  return {
+    '--app-left-menu-width': '200px',
+  };
+})
 </script>
 
 <style lang="scss" scoped>
@@ -38,7 +45,7 @@ initThemeColor();
     position: relative;
     display: grid;
     grid-template-rows: calc(100vh - 32px) 1fr;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: var(--app-left-menu-width) 1fr;
   }
 }
 </style>

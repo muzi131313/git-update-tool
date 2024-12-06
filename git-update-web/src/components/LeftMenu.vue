@@ -66,7 +66,7 @@ jsonInit();
 
 <style lang="scss" scoped>
 .left-menu {
-  width: 200px;
+  width: var(--app-left-menu-width);
   background: var(--vt-c-bg);
   box-shadow: var(--vt-shadow-3);
   border-right: 1px solid var(--vt-c-divider);

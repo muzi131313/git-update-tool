@@ -66,7 +66,7 @@ onMounted(() => {
   position: absolute;
   z-index: 3;
   top: 0;
-  left: 200px;
+  left: var(--app-left-menu-width);
   display: flex;
   align-items: center;
   width: 240px;
