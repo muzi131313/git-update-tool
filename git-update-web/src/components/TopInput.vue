@@ -1,12 +1,12 @@
 <template>
   <div class="top-input" v-click-outside="clickOutSide">
-    <input type="text" v-model="inputValue" />
+    <input type="text" v-model="inputValue" ref="inputRef" />
     <button @click="edit" v-if="isEdit">修改</button>
     <button @click="create" v-else>创建</button>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 
 import { useJsonStore } from '@/stores/json';
 import { useInputStore } from '@/stores/input';
@@ -17,6 +17,7 @@ const inputStore = useInputStore();
 
 const { selectKey } = storeToRefs(jsonStore);
 const inputValue = ref('');
+const inputRef = ref();
 const isEdit = computed(() => inputStore.isEdit);
 
 const updateInputValue = (value: string) => {
@@ -52,6 +53,9 @@ const edit = async () => {
 const init = async () => {
   const key = await jsonStore.getInputByKey(selectKey.value);
   updateInputValue(isEdit.value ? key : '');
+  nextTick(() => {
+    inputRef.value.focus();
+  });
 }
 onMounted(() => {
   init();
