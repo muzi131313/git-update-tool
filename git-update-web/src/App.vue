@@ -21,7 +21,8 @@ import TopInput from './components/TopInput.vue';
 import TopBar from './components/TopBar.vue';
 import { useInputStore } from '@/stores/input';
 import { useThemeColor } from './hooks/useThemeColor';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 const inputStore = useInputStore();
 const { show } = storeToRefs(inputStore);
@@ -29,7 +30,7 @@ const { show } = storeToRefs(inputStore);
 const { initThemeColor } = useThemeColor();
 initThemeColor();
 
-const leftMenuWidth = ref('200px');
+const leftMenuWidth = useLocalStorage('leftMenuWidth', '200px');
 
 const appStyle = computed(() => {
   return {

@@ -82,7 +82,7 @@ jsonInit();
     position: absolute;
     right: 0;
     top: 0;
-    width: 4px;
+    width: 2px;
     height: 100%;
     background-color: var(--vt-c-divider-light);
     cursor: ew-resize;
