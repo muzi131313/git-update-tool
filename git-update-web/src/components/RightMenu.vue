@@ -3,8 +3,8 @@
     <li @click="darkLightMenu">dark/light</li>
     <li @click="createMenu">create</li>
     <li @click="renameMenu">rename</li>
-    <li @click="delMenu">del</li>
     <li @click="executeMenu">execute</li>
+    <li @click="delMenu">delete</li>
   </ul>
 </template>
 <script lang="ts" setup>
