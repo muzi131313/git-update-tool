@@ -1,5 +1,5 @@
 <template>
-  <div class="right-content">
+  <div class="right-content" :style="contentStyle">
     <div class="edit-content">
       <Codemirror
         v-model="jsonString"
@@ -14,13 +14,14 @@
       />
     </div>
     <div class="output-content">
+      <div class="output-content-line" @mousedown="startResizing"></div>
       <BottomOutput></BottomOutput>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { Codemirror } from 'vue-codemirror'
 import { json as Json } from '@codemirror/lang-json'
 import { useJsonStore } from '@/stores/json';
@@ -28,12 +29,31 @@ import { storeToRefs } from 'pinia';
 import BottomOutput from './BottomOutput.vue';
 import { oneDark } from '@codemirror/theme-one-dark'
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { useResizable } from '@/hooks/useResizable';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { CacheKey } from '@/utils/constant';
 
 const jsonStore = useJsonStore();
 const { jsonString } = storeToRefs(jsonStore);
 
 const { isDarkMode } = useThemeColor();
 
+const maxHeight = useLocalStorage(CacheKey.terminal, CacheKey.terminalHeight);
+const { size: targetHeight, startResizing } = useResizable(maxHeight.value, {
+  useHeight: true,
+  minHeight: 200,
+  maxHeight: 700,
+});
+
+const contentStyle = computed(() => {
+  return {
+    '--terminal-max-height': `${maxHeight.value}px`,
+  }
+})
+
+watch(targetHeight, val => {
+  maxHeight.value = val;
+})
 
 const initExtensions = () => {
   const isDark = isDarkMode();
@@ -69,8 +89,18 @@ const handleReady = () => {
   .output-content {
     width: 100%;
     overflow-y: scroll;
-    max-height: 390px;
-    border-top: 1px solid var(--vt-c-divider);
+    max-height: var(--terminal-max-height);
+    position: relative;
+    &-line {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--vt-c-divider);
+      cursor: ns-resize;
+      z-index: 1;
+    }
   }
 }
 </style>

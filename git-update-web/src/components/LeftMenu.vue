@@ -24,6 +24,8 @@ import { useJsonStore } from '@/stores/json';
 import { useMenuStore } from '@/stores/menu';
 import { useResizable } from '@/hooks/useResizable';
 import type { MenuItem } from '@/interface.d';
+import { CacheKey } from '@/utils/constant';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const jsonStore = useJsonStore();
 const emit = defineEmits(['updateMenuWidth']);
@@ -38,7 +40,8 @@ const menuItems = computed(() => {
   });
 });
 
-const { width: sidebarWidth, startResizing } = useResizable(200, {
+const leftMenuWidth = useLocalStorage(CacheKey.leftMenu, CacheKey.leftMenuWidth);
+const { size: sidebarWidth, startResizing } = useResizable(leftMenuWidth.value, {
   minWidth: 150,
   maxWidth: 600,
 });
@@ -82,7 +85,7 @@ jsonInit();
     position: absolute;
     right: 0;
     top: 0;
-    width: 2px;
+    width: 3px;
     height: 100%;
     background-color: var(--vt-c-divider-light);
     cursor: ew-resize;

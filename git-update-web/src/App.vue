@@ -23,6 +23,7 @@ import { useInputStore } from '@/stores/input';
 import { useThemeColor } from './hooks/useThemeColor';
 import { computed } from 'vue';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { CacheKey } from './utils/constant';
 
 const inputStore = useInputStore();
 const { show } = storeToRefs(inputStore);
@@ -30,16 +31,16 @@ const { show } = storeToRefs(inputStore);
 const { initThemeColor } = useThemeColor();
 initThemeColor();
 
-const leftMenuWidth = useLocalStorage('leftMenuWidth', '200px');
+const leftMenuWidth = useLocalStorage(CacheKey.leftMenu, CacheKey.leftMenuWidth);
 
 const appStyle = computed(() => {
   return {
-    '--app-left-menu-width': leftMenuWidth.value,
+    '--app-left-menu-width': `${leftMenuWidth.value}px`,
   };
 })
 
 const updateMenuWidth = (width: number) => {
-  leftMenuWidth.value = `${width}px`;
+  leftMenuWidth.value = width;
 }
 </script>
 
