@@ -41,6 +41,16 @@ export async function setKey(value: string) {
   return key;
 }
 
+/**
+ *
+ * @param {string} key
+ * @returns
+ */
+export async function getKey(key: string) {
+  const keys = await getKeys();
+  return keys[key];
+}
+
 export async function updateKey(key: string, value: string) {
   const keys = await getKeys();
   keys[key] = value;

@@ -18,6 +18,8 @@ import eventBus from '@/hooks/useEventBus';
 import { EventType, type MenuMessageItem, MenuMessageItemType } from '@/interface.d';
 import { useMenuStore } from '@/stores/menu';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { getKey } from '@/utils/json-utils';
+import { useConfirm } from '@/hooks/useConfirm';
 
 const { toggleThemeColor } =  useThemeColor();
 
@@ -88,6 +90,20 @@ const delMenu = async () => {
     console.warn('[warn] selectId is empty');
     return;
   }
+  const key = selectId.value;
+  const item = await getKey(key);
+  if (!item) {
+    console.error('[error] delete item is empty');
+    return;
+  }
+  const confirmDelete = await useConfirm({
+    title: 'delete',
+    message: `are you sure delete '${item.name}' json config' ?`,
+  });
+  if (!confirmDelete) {
+    console.log('cancel delete');
+    return;
+  }
   await jsonStore.delByKey(selectId.value);
   emits('reSelect');
 }
@@ -97,22 +113,23 @@ const delMenu = async () => {
   position: fixed;
   z-index: 2;
   height: 200px;
-  background-color: #fff;
+  // background-color: #fff;
+  background-color: var(--color-background-soft);
   list-style: none;
   margin: 0;
   padding: 0;
-  border: 1px solid #ddd;
-  color: #000;
+  border: 1px solid var(--color-border);
+  color: var(--vt-c-text-2);
   li {
     height: 30px;
     line-height: 30px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-border);
     padding-left: 8px;
     padding-right: 8px;
     cursor: pointer;
     text-align: center;
     &:hover {
-      background-color: #f9f9f9;
+      background-color: var(--color-background-mute);
     }
   }
 }
