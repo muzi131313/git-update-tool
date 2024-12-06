@@ -4,7 +4,7 @@
       <TopBar></TopBar>
     </header>
     <div class="content-container">
-      <LeftMenu></LeftMenu>
+      <LeftMenu @updateMenuWidth="updateMenuWidth"></LeftMenu>
       <TopInput v-if="show"></TopInput>
       <main>
         <RightContent></RightContent>
@@ -21,7 +21,7 @@ import TopInput from './components/TopInput.vue';
 import TopBar from './components/TopBar.vue';
 import { useInputStore } from '@/stores/input';
 import { useThemeColor } from './hooks/useThemeColor';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const inputStore = useInputStore();
 const { show } = storeToRefs(inputStore);
@@ -29,11 +29,17 @@ const { show } = storeToRefs(inputStore);
 const { initThemeColor } = useThemeColor();
 initThemeColor();
 
+const leftMenuWidth = ref('200px');
+
 const appStyle = computed(() => {
   return {
-    '--app-left-menu-width': '200px',
+    '--app-left-menu-width': leftMenuWidth.value,
   };
 })
+
+const updateMenuWidth = (width: number) => {
+  leftMenuWidth.value = `${width}px`;
+}
 </script>
 
 <style lang="scss" scoped>

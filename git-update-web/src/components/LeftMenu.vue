@@ -11,23 +11,22 @@
       </li>
     </ul>
     <RightMenu @reSelect="reSelect"></RightMenu>
+    <div class="left-menu-line" @mousedown="startResizing"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
 import RightMenu from './RightMenu.vue';
 
 import { useJsonStore } from '@/stores/json';
 import { useMenuStore } from '@/stores/menu';
-
-interface MenuItem {
-  id: string;
-  label: string;
-}
+import { useResizable } from '@/hooks/useResizable';
+import type { MenuItem } from '@/interface.d';
 
 const jsonStore = useJsonStore();
+const emit = defineEmits(['updateMenuWidth']);
 
 const selectedMenuItem = computed(() => jsonStore.currentKey);
 const menuItems = computed(() => {
@@ -38,6 +37,15 @@ const menuItems = computed(() => {
     };
   });
 });
+
+const { width: sidebarWidth, startResizing } = useResizable(200, {
+  minWidth: 150,
+  maxWidth: 600,
+});
+
+watch(sidebarWidth, val => {
+  emit('updateMenuWidth', val);
+})
 
 const updateCurrentKey = (key: string) => {
   jsonStore.setCurrentKey(key);
@@ -69,7 +77,16 @@ jsonInit();
   width: var(--app-left-menu-width);
   background: var(--vt-c-bg);
   box-shadow: var(--vt-shadow-3);
-  border-right: 1px solid var(--vt-c-divider);
+  position: relative;
+  .left-menu-line {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--vt-c-divider-light);
+    cursor: ew-resize;
+  }
 }
 
 .menus {

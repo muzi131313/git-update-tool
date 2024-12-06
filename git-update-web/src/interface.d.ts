@@ -49,3 +49,8 @@ export enum EventType {
   message = 'message',
   menu = 'menu',
 }
+
+export interface MenuItem {
+  id: string;
+  label: string;
+}
