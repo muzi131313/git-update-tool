@@ -25,7 +25,8 @@
   "author": "muzi131313 <muzi131313@163.com>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^11.1.0"
+    "commander": "^11.1.0",
+    "xterm-addon-fit": "^0.8.0"
   },
   "devDependencies": {
     "child_process": "^1.0.2",

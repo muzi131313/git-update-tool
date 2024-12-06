@@ -8,7 +8,8 @@ import { EventType, MessageType, type BackgroundType, type ColorType, type Messa
 import { Welcome } from '@/utils/constant';
 import { onMounted, ref } from 'vue';
 import { Terminal } from 'xterm';
-import 'xterm/css/xterm.css'; // 引入样式
+import { FitAddon } from 'xterm-addon-fit';
+import 'xterm/css/xterm.css'; // import styles
 
 const terminalRef = ref();
 
@@ -27,6 +28,8 @@ const terminal = new Terminal({
     foreground,
   },
 });
+const fitAddon = new FitAddon();
+terminal.loadAddon(fitAddon);
 
 function writeColoredText(terminal: Terminal, text: string, color: ColorType, background: BackgroundType) {
   const colorCode = color ? `\x1b[${color}m` : '';
@@ -55,6 +58,12 @@ const initTerminal = () => {
   terminal.open(terminalRef.value);
   writeMessage(`${Welcome} terminal!\r`);
 }
+
+const updateTerminalHeight = (height: number) => {
+  terminalRef.value.style.height = `${height}px`;
+  fitAddon.fit();
+}
+
 const initEvent = () => {
   eventBus.on(EventType.message, (message: unknown) => {
     const messageItem = message as MessageItem;
@@ -65,5 +74,9 @@ const initEvent = () => {
 onMounted(() => {
   initTerminal();
   initEvent();
+})
+
+defineExpose({
+  updateTerminalHeight,
 })
 </script>

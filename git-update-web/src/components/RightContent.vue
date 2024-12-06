@@ -15,7 +15,7 @@
     </div>
     <div class="output-content">
       <div class="output-content-line" @mousedown="startResizing"></div>
-      <BottomOutput></BottomOutput>
+      <BottomOutput ref="terminalRef"></BottomOutput>
     </div>
   </div>
 </template>
@@ -36,6 +36,8 @@ import { CacheKey } from '@/utils/constant';
 const jsonStore = useJsonStore();
 const { jsonString } = storeToRefs(jsonStore);
 
+const terminalRef = ref();
+
 const { isDarkMode } = useThemeColor();
 
 const maxHeight = useLocalStorage(CacheKey.terminal, CacheKey.terminalHeight);
@@ -53,6 +55,7 @@ const contentStyle = computed(() => {
 
 watch(targetHeight, val => {
   maxHeight.value = val;
+  terminalRef.value.updateTerminalHeight(val);
 })
 
 const initExtensions = () => {
