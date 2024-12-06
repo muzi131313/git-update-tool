@@ -1,5 +1,6 @@
 <template>
   <ul class="right-menu" :style="rightMenuStyle" v-if="menuShow">
+    <li @click="darkLightMenu">dark/light</li>
     <li @click="createMenu">create</li>
     <li @click="renameMenu">rename</li>
     <li @click="delMenu">del</li>
@@ -16,6 +17,9 @@ import { useJsonStore } from '@/stores/json';
 import eventBus from '@/hooks/useEventBus';
 import { EventType, type MenuMessageItem, MenuMessageItemType } from '@/interface.d';
 import { useMenuStore } from '@/stores/menu';
+import { useThemeColor } from '@/hooks/useThemeColor';
+
+const { toggleThemeColor } =  useThemeColor();
 
 const inputStore = useInputStore();
 const jsonStore = useJsonStore();
@@ -35,6 +39,9 @@ const rightMenuStyle = computed(() => {
 eventBus.on(EventType.menu, (message: unknown) => {
   const messageItem = message as MenuMessageItem;
   switch (messageItem.type) {
+    case MenuMessageItemType.darkLight:
+      darkLightMenu();
+      break;
     case MenuMessageItemType.create:
       createMenu();
       break;
@@ -51,6 +58,10 @@ eventBus.on(EventType.menu, (message: unknown) => {
       break;
   }
 })
+
+const darkLightMenu = () => {
+  toggleThemeColor();
+}
 
 const executeMenu = async () => {
   if (!selectId.value) {

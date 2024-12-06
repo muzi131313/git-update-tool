@@ -15,14 +15,33 @@ export const useThemeColor = () => {
     return isDarkThemeColor();
   }
 
-  const initThemeColor = () => {
+  const isCurrentDarkMode = () => {
     const isDark = hasCustomThemeColor() ? isCustomDarkThemeColor() : isSystemDarkThemeColor();
-    const themePrefix = isDark ? ThemeColor.Dark : ThemeColor.Light;
-    getRootDom().className = `${themePrefix}-theme`;
+    return isDark;
+  }
+
+  const updateThemeColor = (theme: ThemeColor) => {
+    getRootDom().className = `${theme}-theme`;
+    localStorage.setItem(ThemeColorKey, theme);
+  }
+
+  const initThemeColor = () => {
+    const isDark = isCurrentDarkMode();
+    const theme = isDark ? ThemeColor.Dark : ThemeColor.Light;
+    updateThemeColor(theme);
+  }
+
+  const toggleThemeColor = () => {
+    const isDark = isCurrentDarkMode();
+    const theme = isDark ? ThemeColor.Light : ThemeColor.Dark;
+    updateThemeColor(theme);
+    // TODO: update theme color in editor/terminal
+    window.location.reload();
   }
 
   return {
     initThemeColor,
+    toggleThemeColor,
     isDarkMode,
   }
 };

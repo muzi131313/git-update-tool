@@ -18,6 +18,13 @@ import eventBus from '@/hooks/useEventBus';
 import { EventType, MenuMessageItemType } from '@/interface.d';
 
 const menus = [
+{
+    icon: 'a-DarkLight',
+    text: 'dark/light',
+    click: () => {
+      eventBus.emit(EventType.menu, { type: MenuMessageItemType.darkLight });
+    },
+  },
   {
     icon: 'create_new',
     text: 'create',

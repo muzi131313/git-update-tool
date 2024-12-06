@@ -9,6 +9,7 @@ export enum MessageType {
 }
 
 export enum MenuMessageItemType {
+  darkLight = 'darkLight',
   create = 'Create',
   rename = 'Rename',
   delete = 'Delete',
