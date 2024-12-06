@@ -16,44 +16,53 @@
 <script lang="ts" setup>
 import eventBus from '@/hooks/useEventBus';
 import { EventType, MenuMessageItemType } from '@/interface.d';
+import { useCommonStore } from '@/stores/common';
+import { computed } from 'vue';
 
-const menus = [
-{
-    icon: 'a-DarkLight',
-    text: 'dark/light',
-    click: () => {
-      eventBus.emit(EventType.menu, { type: MenuMessageItemType.darkLight });
+const commonStore = useCommonStore();
+
+const isDarkMode = computed(() => commonStore.isDark);
+const toggleMenuText = computed(() => isDarkMode.value ? 'light' : 'dark');
+
+const menus = computed(() => {
+  return [
+   {
+      icon: 'a-DarkLight',
+      text: toggleMenuText.value,
+      click: () => {
+        eventBus.emit(EventType.menu, { type: MenuMessageItemType.darkLight });
+      },
     },
-  },
-  {
-    icon: 'create_new',
-    text: 'create',
-    click: () => {
-      eventBus.emit(EventType.menu, { type: MenuMessageItemType.create });
+    {
+      icon: 'create_new',
+      text: 'create',
+      click: () => {
+        eventBus.emit(EventType.menu, { type: MenuMessageItemType.create });
+      },
     },
-  },
-  {
-    icon: 'rename',
-    text: 'rename',
-    click: () => {
-      eventBus.emit(EventType.menu, { type: MenuMessageItemType.rename });
+    {
+      icon: 'rename',
+      text: 'rename',
+      click: () => {
+        eventBus.emit(EventType.menu, { type: MenuMessageItemType.rename });
+      },
     },
-  },
-  {
-    icon: 'execute',
-    text: 'execute',
-    click: () => {
-      eventBus.emit(EventType.menu, { type: MenuMessageItemType.execute });
+    {
+      icon: 'execute',
+      text: 'execute',
+      click: () => {
+        eventBus.emit(EventType.menu, { type: MenuMessageItemType.execute });
+      },
     },
-  },
-  {
-    icon: 'delete',
-    text: 'delete',
-    click: () => {
-      eventBus.emit(EventType.menu, { type: MenuMessageItemType.delete });
+    {
+      icon: 'delete',
+      text: 'delete',
+      click: () => {
+        eventBus.emit(EventType.menu, { type: MenuMessageItemType.delete });
+      },
     },
-  },
-];
+  ];
+});
 </script>
 <style lang="scss" scoped>
 .top-bar-container {

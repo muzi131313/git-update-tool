@@ -1,6 +1,6 @@
 <template>
   <ul class="right-menu" :style="rightMenuStyle" v-if="menuShow">
-    <li @click="darkLightMenu">dark/light</li>
+    <li @click="toggleThemeMenu">{{ toggleMenuText }}</li>
     <li @click="createMenu">create</li>
     <li @click="renameMenu">rename</li>
     <li @click="executeMenu">execute</li>
@@ -20,13 +20,17 @@ import { useMenuStore } from '@/stores/menu';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { getKey } from '@/utils/json-utils';
 import { useConfirm } from '@/hooks/useConfirm';
+import { useCommonStore } from '@/stores/common';
 
 const { toggleThemeColor } =  useThemeColor();
 
+const commonStore = useCommonStore();
 const inputStore = useInputStore();
 const jsonStore = useJsonStore();
 const io = useIO();
 const selectId = computed(() => useMenuStore().selectId);
+const isDarkMode = computed(() => commonStore.isDark);
+const toggleMenuText = computed(() => isDarkMode.value ? 'light' : 'dark');
 
 const emits = defineEmits(['reSelect']);
 
@@ -42,7 +46,7 @@ eventBus.on(EventType.menu, (message: unknown) => {
   const messageItem = message as MenuMessageItem;
   switch (messageItem.type) {
     case MenuMessageItemType.darkLight:
-      darkLightMenu();
+      toggleThemeMenu();
       break;
     case MenuMessageItemType.create:
       createMenu();
@@ -61,7 +65,7 @@ eventBus.on(EventType.menu, (message: unknown) => {
   }
 })
 
-const darkLightMenu = () => {
+const toggleThemeMenu = () => {
   toggleThemeColor();
 }
 

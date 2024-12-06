@@ -1,3 +1,4 @@
+import { useCommonStore } from '@/stores/common';
 import { ThemeColor, ThemeColorKey } from '@/utils/constant';
 
 
@@ -21,6 +22,7 @@ export const useThemeColor = () => {
   }
 
   const updateThemeColor = (theme: ThemeColor) => {
+    useCommonStore().updateThemeColor(theme);
     getRootDom().className = `${theme}-theme`;
     localStorage.setItem(ThemeColorKey, theme);
   }
