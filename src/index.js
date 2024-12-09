@@ -5,8 +5,8 @@ const Tool = require('./utils/tool.js');
 const { MsgType } = require('./utils/constant.js');
 
 const GuEntry = {
-  start() {
-    Tool.execCommand('sh ./build/start.sh');
+  start(port) {
+    Tool.execCommand(`sh ./build/start.sh ${port}`);
   },
   list() {
     Tool.execCommand('sh ./build/list.sh');

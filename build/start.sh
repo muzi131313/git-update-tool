@@ -1,5 +1,11 @@
 #!/bin/bash
 
+port=$1
+
+if [ -z "$port" ]; then
+  port=8802
+fi
+
 # 加载 nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -46,4 +52,6 @@ create_file_if_not_exists "$err_file"
 cd ./server
 yarn
 # 使用 forever 启动应用，传递动态路径
-npx forever start --append -l "$log_file" -o "$out_file" -e "$err_file" --uid "$server_name" src/index.js
+PORT=$port npx forever start --append -l "$log_file" -o "$out_file" -e "$err_file" --uid "$server_name" src/index.js
+
+echo "Server started, please visit http://localhost:$port"

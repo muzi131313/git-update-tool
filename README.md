@@ -1,7 +1,7 @@
 # git-update-tool
 git update tool for many projects
 
-## Usage with gu
+## Usage with git update tool
 ### install
 ```bash
 npm install git-update-tool -g
@@ -29,3 +29,37 @@ npm install git-update-tool -g
 ```
 gu -c update-version.json
 ```
+
+## Usage with gu web
+### start service
+```bash
+gu -s
+# or
+gu --start
+```
+### set port
+```bash
+gu -p 3000
+# or
+gu --port 3000
+```
+### list service
+```bash
+gu -l
+# or
+gu --list
+```
+### stop service
+```bash
+gu -r
+# or
+gu --remove
+```
+
+### visit web
+- [http://localhost:8802](http://localhost:8802)
+or
+```bash
+gu -s -p 3000
+```
+- [http://localhost:3000](http://localhost:3000)
