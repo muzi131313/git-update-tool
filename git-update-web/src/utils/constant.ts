@@ -13,3 +13,5 @@ export enum CacheKey {
   terminal = 'cache-terminalHeight',
   terminalHeight = 390,
 }
+
+export const Title = 'git update tool';

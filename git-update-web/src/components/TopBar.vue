@@ -1,7 +1,7 @@
 <template>
   <div class="top-bar-container">
     <span class="logo">
-      git update
+      {{ Title }}
     </span>
     <ul class="operate-btns">
       <li class="operate-btn" v-for="(menu, index) in menus" :key="index" @click="menu.click">
@@ -18,6 +18,7 @@ import eventBus from '@/hooks/useEventBus';
 import { EventType, MenuMessageItemType } from '@/interface.d';
 import { useCommonStore } from '@/stores/common';
 import { computed } from 'vue';
+import { Title } from '@/utils/constant';
 
 const commonStore = useCommonStore();
 
@@ -76,10 +77,12 @@ const menus = computed(() => {
   .logo {
     display: inline-flex;
     font-weight: bold;
+    font-style: italic;
   }
   .operate-btns {
     display: inline-flex;
     list-style: none;
+    padding-left: 120px;
     .operate-btn {
       padding-left: 8px;
       padding-right: 8px;
