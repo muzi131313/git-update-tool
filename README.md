@@ -11,20 +11,35 @@ npm install git-update-tool -g
 [
   {
     "path": "/Users/xxx/code/admin",
+    "baseBranch": "master",
     "branch": "feature_manage",
-    "installScript": "nvm use 16.20.2 && yarn",
-    "updateScript": "nvm use 16.20.2 && yarn add @manage/login@0.0.1-BETA.20",
+    "envScript": "nvm use 14.19.3",
+    "installScript": "yarn",
+    "updateScript": "yarn add @manage/login@0.0.1-BETA.20",
+    "beforeCommit": "git status",
     "commit": "feat(other): bump version to @manage/login@0.0.1-BETA.20"
   },
   {
     "path": "/Users/xxx/code/web",
+    "baseBranch": "master",
     "branch": "feature_manage",
-    "installScript": "nvm use 16.20.2 && yarn",
-    "updateScript": "nvm use 16.20.2 && yarn add @manage/login@0.0.1-BETA.20",
+    "envScript": "nvm use 16.20.2",
+    "installScript": "pnpm i",
+    "updateScript": "pnpm add @manage/login@0.0.1-BETA.20",
+    "beforeCommit": "git status",
     "commit": "feat(other): bump version to @manage/login@0.0.1-BETA.20"
   }
 ]
 ```
+
+- path: project path(will open the target project by path)
+- baseBranch: base branch(create new branch from base branch)
+- branch: new branch
+- installScript: install script(update dependencies before update version)
+- updateScript: update script
+- beforeCommit: before commit script
+- commit: commit message
+
 ### execute
 ```
 gu -c update-version.json
@@ -42,6 +57,12 @@ gu --start
 gu -p 3000
 # or
 gu --port 3000
+```
+### restart service
+```bash
+gu -rs
+# or
+gu --restart
 ```
 ### list service
 ```bash
