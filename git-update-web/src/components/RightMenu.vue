@@ -1,10 +1,35 @@
 <template>
   <ul class="right-menu" :style="rightMenuStyle" v-if="menuShow">
-    <li @click="toggleThemeMenu">{{ toggleMenuText }}</li>
-    <li @click="createMenu">create</li>
-    <li @click="renameMenu">rename</li>
-    <li @click="executeMenu">execute</li>
-    <li @click="delMenu">delete</li>
+    <li @click="toggleThemeMenu">
+      <svg class="icon" aria-hidden="true">
+        <use :xlink:href="`#icon-a-DarkLight`"></use>
+      </svg>
+      {{ toggleMenuText }}
+    </li>
+    <li @click="createMenu">
+      <svg class="icon" aria-hidden="true">
+        <use :xlink:href="`#icon-create_new`"></use>
+      </svg>
+      create
+    </li>
+    <li @click="renameMenu">
+      <svg class="icon" aria-hidden="true">
+        <use :xlink:href="`#icon-rename`"></use>
+      </svg>
+      rename
+    </li>
+    <li @click="executeMenu">
+      <svg class="icon" aria-hidden="true">
+        <use :xlink:href="`#icon-execute`"></use>
+      </svg>
+      execute
+    </li>
+    <li @click="delMenu">
+      <svg class="icon" aria-hidden="true">
+        <use :xlink:href="`#icon-delete`"></use>
+      </svg>
+      delete
+    </li>
   </ul>
 </template>
 <script lang="ts" setup>
@@ -127,9 +152,12 @@ const delMenu = async () => {
     line-height: 30px;
     border-bottom: 1px solid var(--color-border);
     padding-left: 8px;
-    padding-right: 8px;
+    padding-right: 16px;
     cursor: pointer;
-    text-align: center;
+    text-align: left;
+    .icon {
+      margin-right: 2px;
+    }
     &:hover {
       background-color: var(--color-background-mute);
     }
