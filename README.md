@@ -84,3 +84,17 @@ or
 gu -s -p 3000
 ```
 - [http://localhost:3000](http://localhost:3000)
+
+
+## develop with git update tool
+### start server
+```bash
+nvm use 18.20.0 && yarn dev:server
+```
+### start web
+```bash
+nvm use 18.20.0 && yarn dev:web
+```
+### visit web
+
+- [http://localhost:8088](http://localhost:8088)
