@@ -8,6 +8,9 @@ const GuEntry = {
   start(port) {
     Tool.execCommand(`sh ./build/start.sh ${port}`);
   },
+  restart(port) {
+    Tool.execCommand(`sh ./build/restart.sh ${port}`);
+  },
   list() {
     Tool.execCommand('sh ./build/list.sh');
   },

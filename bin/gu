@@ -20,11 +20,12 @@ program
   .option('-c, --config <config>', 'Config file path')
   .option('-d, --debug', 'Enable debug mode')
   .option('-s, --start', 'start git update web service')
+  .option('-rs, --restart', 'restart git update web service')
   .option('-p, --port <port>', 'set port number')
   .option('-l, --list', 'list git update web service')
   .option('-r, --remove', 'remove git update web service')
   .action((options) => {
-    const { debug = false, config, start, port = 3000, list, remove } = options;
+    const { debug = false, config, start, restart, port = 3000, list, remove } = options;
 
     // set debug mode
     Log.debug = debug;
@@ -40,6 +41,10 @@ program
 
     if (start) {
       GU.start(port);
+    }
+
+    if (restart) {
+      GU.restart(port);
     }
 
     if (list) {
