@@ -6,7 +6,7 @@ const ioInit = require('./io-init');
 const app = express();
 const server = createServer(app);
 
-// 设置静态资源文件夹
+// set static assets folder
 app.use('/', express.static(join(__dirname, '../dist')));
 
 app.get('/', (req, res) => {
