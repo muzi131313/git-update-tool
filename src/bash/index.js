@@ -1,6 +1,6 @@
 const Tool = require('../utils/tool');
 const Log = require('../utils/log');
-const { JSONKeys, RequireJSONKeys, MsgType } = require('../utils/constant');
+const { JSONKeys, JSONDefault, RequireJSONKeys, MsgType } = require('../utils/constant');
 
 const Bash = {
   invalidateJSON: (json) => {
@@ -33,6 +33,7 @@ const Bash = {
   },
   generateChangePathAndTarget: (json) => {
     const path = json[JSONKeys.path];
+    const baseBranch = json[JSONKeys.baseBranch] || JSONDefault.baseBranch;
     const branch = json[JSONKeys.branch];
     const envScript = json[JSONKeys.envScript];
     const installScript = json[JSONKeys.installScript];
@@ -49,7 +50,18 @@ const Bash = {
     echo "will execute: git stash && git checkout ${branch}"
     # execute stash to save current changes
     git stash
-    git checkout ${branch}
+    # check if branch exists
+    if git branch --list | grep -q "target-branch-name"; then
+      echo "Branch exists"
+      git checkout ${branch}
+    else
+      echo "Branch does not exist"
+      # checkout to base branch
+      git checkout ${baseBranch}
+      git checkout -b ${branch}
+      git push --set-upstream origin ${branch}
+
+    fi
     # pull latest code
     git pull
 
