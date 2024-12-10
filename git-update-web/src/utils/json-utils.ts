@@ -3,6 +3,7 @@ import { getRandomString } from './string';
 
 const KEY_KEY = 'keys';
 const JSON_KEY = 'json';
+const CURRENT_KEY = 'currentKey';
 
 export function parseJSON(json: string) {
   try {
@@ -106,4 +107,21 @@ export async function setJSON(key: string, json: any) {
 export async function removeJSON(key: string) {
   await LocalForage.removeItem(`${JSON_KEY}-${key}`);
   await removeKey(key);
+}
+
+/**
+ *
+ * @returns current key about left menu selected
+ */
+export async function getCurrentKey() {
+  const key = await LocalForage.getItem(CURRENT_KEY);
+  return key;
+}
+
+/**
+ * cache the select in left menu
+ * @param {string} key left menu selected key
+ */
+export async function setCurrentKey(key: string) {
+  await LocalForage.setItem(CURRENT_KEY, key);
 }

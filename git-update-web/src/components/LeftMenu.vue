@@ -26,6 +26,7 @@ import { useResizable } from '@/hooks/useResizable';
 import type { MenuItem } from '@/interface.d';
 import { CacheKey } from '@/utils/constant';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { getCurrentKey } from '@/utils/json-utils';
 
 const jsonStore = useJsonStore();
 const emit = defineEmits(['updateMenuWidth']);
@@ -55,13 +56,13 @@ const updateCurrentKey = (key: string) => {
   useMenuStore().updateSelectId(key);
 };
 
-const jsonInit = () => {
-  jsonStore.init().then((keys: object) => {
-    const _keys = Object.keys(keys);
-    if (_keys?.length) {
-      updateCurrentKey(_keys[0]);
-    }
-  });
+const jsonInit =  async() => {
+  const keys = await jsonStore.init();
+  const key = await getCurrentKey();
+  const _keys = Object.keys(keys);
+  const hasKeys = _keys?.length;
+  const currentKey = key as string || (hasKeys ? _keys[0] : '');
+  updateCurrentKey(currentKey);
 };
 
 const reSelect = () => {

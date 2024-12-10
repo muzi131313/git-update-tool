@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { addKey, updateKey, removeKey, getKeys, getJSON, setJSON, removeJSON } from '../utils/json-utils';
+import { addKey, updateKey, removeKey, getKeys, getJSON, setJSON, removeJSON, setCurrentKey } from '../utils/json-utils';
 
 interface State {
   // config keys
@@ -44,6 +44,7 @@ export const useJsonStore = defineStore('json', {
       await setJSON(key, json);
     },
     async setCurrentKey(key: string) {
+      setCurrentKey(key);
       this.currentKey = key;
       this.json = await getJSON(key);
       this.jsonString = this.json ? this.json.toString() : '';
