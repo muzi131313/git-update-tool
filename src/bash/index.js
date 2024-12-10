@@ -4,10 +4,21 @@ const { JSONKeys, JSONDefault, RequireJSONKeys, MsgType } = require('../utils/co
 
 const Bash = {
   invalidateJSON: (json) => {
-    return RequireJSONKeys.some((key) => {
+    let invalidate = false;
+    const missKeys = [];
+    RequireJSONKeys.forEach((key) => {
       const jsonItem = json[key];
-      return jsonItem === undefined || jsonItem === null || jsonItem?.trim() === '';
+      const _invalidate = Tool.isInvalidate(jsonItem);
+      if (_invalidate) {
+        invalidate = true;
+        missKeys.push(key);
+      }
     });
+
+    return {
+      invalidate,
+      missKeys,
+    }
   },
   executeBashItem: async (json, callback) => {
     if (!json) {
@@ -18,15 +29,35 @@ const Bash = {
       });
       return;
     }
-    const invalidate = Bash.invalidateJSON(json);
+    const { invalidate, missKeys } = Bash.invalidateJSON(json);
     if (invalidate) {
       Log.error('[bash] json is invalidate');
       callback && callback({
         type: MsgType.Error,
-        data: 'json is invalidate',
+        data: `json is invalidate, missing keys: ${missKeys.join(', ')}`,
       });
       return;
     }
+    const folderPath = json[JSONKeys.path];
+    // check target path exists
+    if (!Tool.isFolderExist(folderPath)) {
+      Log.error('[bash] folder not exists: ', folderPath);
+      callback && callback({
+        type: MsgType.Error,
+        data: `path not exists: ${folderPath}`,
+      });
+      return;
+    }
+    // check if target path is a git repository
+    if (!Tool.isGitFolder(folderPath)) {
+      Log.error('[bash] not a git repository: ', folderPath);
+      callback && callback({
+        type: MsgType.Error,
+        data: `not a git repository: ${folderPath}`,
+      });
+      return;
+    }
+
     Log.log('[bash] execute json: ', json);
     const pathBranchBash = Bash.generateChangePathAndTarget(json);
     await Bash.executeBash(pathBranchBash, callback);
