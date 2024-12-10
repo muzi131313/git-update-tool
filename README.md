@@ -16,7 +16,7 @@ npm install git-update-tool -g
     "envScript": "nvm use 14.19.3",
     "installScript": "yarn",
     "updateScript": "yarn add @manage/login@0.0.1-BETA.20",
-    "beforeCommit": "git status",
+    "beforeCommit": "git config user.name 'muzi131313' && git config user.email 'muzi131313@163.com'",
     "commit": "feat(other): bump version to @manage/login@0.0.1-BETA.20"
   },
   {
@@ -26,7 +26,7 @@ npm install git-update-tool -g
     "envScript": "nvm use 16.20.2",
     "installScript": "pnpm i",
     "updateScript": "pnpm add @manage/login@0.0.1-BETA.20",
-    "beforeCommit": "git status",
+    "beforeCommit": "git config user.name 'muzi131313' && git config user.email 'muzi131313@163.com'",
     "commit": "feat(other): bump version to @manage/login@0.0.1-BETA.20"
   }
 ]
