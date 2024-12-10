@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue';
-import Confirm from '../components/Confirm.vue';
+import BaseConfirm from '../components/BaseConfirm.vue';
 
 export function useConfirm({ title = 'confirm', message = 'are you sure to continue?' } = {}) {
   return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ export function useConfirm({ title = 'confirm', message = 'are you sure to conti
 
       const app = createApp({
         render() {
-          return h(Confirm, {
+          return h(BaseConfirm, {
             title,
             message,
             visible: true,
