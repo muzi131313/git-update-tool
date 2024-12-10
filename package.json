@@ -7,6 +7,8 @@
     "gu": "./bin/gu"
   },
   "scripts": {
+    "dev:server": "sh build/dev.sh server",
+    "dev:web": "sh build/dev.sh web",
     "postversion": "git push origin --tag",
     "v:major": "npx standard-version --release-as major",
     "v:minor": "npx standard-version --release-as minor",
@@ -24,6 +26,9 @@
   },
   "author": "muzi131313 <muzi131313@163.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.20.0"
+  },
   "dependencies": {
     "commander": "^11.1.0",
     "xterm-addon-fit": "^0.8.0"

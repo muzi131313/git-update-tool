@@ -8,6 +8,36 @@ const { MsgType } = require('./constant.js');
 const tools = {};
 
 /**
+ * @name isInvalidate
+ * @description check json value is invalidate
+ * @param {any} jsonValue
+ * @returns
+ */
+function isInvalidate(jsonValue) {
+  return jsonValue === undefined || jsonValue === null || jsonValue?.trim() === '';
+};
+
+/**
+ * @name isFolderExist
+ * @description check folder exists
+ * @param {string} folderPath folder path
+ * @returns
+ */
+function isFolderExist(folderPath) {
+  return fs.existsSync(folderPath);
+}
+
+/**
+ * @name isGitFolder
+ * @description check folder is git folder
+ * @param {string} folderPath folder path
+ * @returns
+ */
+function isGitFolder(folderPath) {
+  return fs.existsSync(path.join(folderPath, '.git'));
+}
+
+/**
  * @name readFile
  * @description read file
  * @created 2024-11-23 11:38:10
@@ -92,6 +122,9 @@ function execCommand(command, callback) {
   });
 }
 
+tools.isInvalidate = isInvalidate;
+tools.isFolderExist = isFolderExist;
+tools.isGitFolder = isGitFolder;
 tools.readFile = readFile;
 tools.execCommand = execCommand;
 

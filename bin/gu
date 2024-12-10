@@ -25,7 +25,7 @@ program
   .option('-l, --list', 'list git update web service')
   .option('-r, --remove', 'remove git update web service')
   .action((options) => {
-    const { debug = false, config, start, restart, port = 3000, list, remove } = options;
+    const { debug = false, config, start, restart, port = 8802, list, remove } = options;
 
     // set debug mode
     Log.debug = debug;

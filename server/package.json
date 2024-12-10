@@ -12,7 +12,11 @@
   },
   "author": "muzi131313 <muzi131313@163.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.20.0"
+  },
   "dependencies": {
+    "axios-pro": "1.0.1",
     "express": "^4.18.2",
     "socket.io": "^4.7.4"
   },

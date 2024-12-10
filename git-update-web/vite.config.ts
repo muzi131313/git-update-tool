@@ -9,7 +9,7 @@ export default defineConfig({
     port: 8088,
     proxy: {
       '/socket.io': {
-        target: 'ws://localhost:3000',
+        target: 'ws://localhost:8802',
         ws: true,
       },
     },
