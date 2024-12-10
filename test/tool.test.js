@@ -6,6 +6,23 @@ test('Tool read json from ./json/example.json', () => {
   expect(Tool.readFile(_path)).toEqual(JSON.parse(`[{"path": "example.json"}]`));
 });
 
+test('Tool check validate json', () => {
+  expect(Tool.isInvalidate('')).toBe(true);
+  expect(Tool.isInvalidate(null)).toBe(true);
+  expect(Tool.isInvalidate(undefined)).toBe(true);
+  expect(Tool.isInvalidate('hello')).toBe(false);
+});
+
+test('Tool check folder exists', () => {
+  const _path = path.resolve(__dirname, './json');
+  expect(Tool.isFolderExist(_path)).toBe(true);
+});
+
+test('Tool check folder is git folder', () => {
+  const _path = path.resolve(__dirname, './json');
+  expect(Tool.isGitFolder(_path)).toBe(false);
+});
+
 test('Tool execCommand success', async () => {
   try {
     const command = 'echo "hello world";';
