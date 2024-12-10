@@ -86,7 +86,7 @@ gu -s -p 3000
 - [http://localhost:3000](http://localhost:3000)
 
 
-## develop with git update tool
+## develop in git update tool
 ### start server
 ```bash
 nvm use 18.20.0 && yarn dev:server
