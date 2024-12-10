@@ -85,16 +85,17 @@ const Bash = {
     if git branch --list | grep -q "target-branch-name"; then
       echo "Branch exists"
       git checkout ${branch}
+      # pull latest code
+      git pull
     else
       echo "Branch does not exist"
       # checkout to base branch
       git checkout ${baseBranch}
+      git pull
       git checkout -b ${branch}
       git push --set-upstream origin ${branch}
 
     fi
-    # pull latest code
-    git pull
 
     # 3. env change(eg: change node version to 16.15.1 when current node version is 14.19.3)
     ${envScript ? `${envScript} && node -v` : ''}
