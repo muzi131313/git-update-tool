@@ -1,5 +1,5 @@
 # git-update-tool
-git update tool for many projects
+A tool for updating dependencies across multiple projects.
 
 ## Usage with git update tool
 ### install
