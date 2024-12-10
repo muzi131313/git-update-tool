@@ -82,7 +82,7 @@ const Bash = {
     # execute stash to save current changes
     git stash
     # check if branch exists
-    if git branch --list | grep -q "target-branch-name"; then
+    if git branch --list | grep -q "${branch}"; then
       echo "Branch exists"
       git checkout ${branch}
       # pull latest code
@@ -94,7 +94,6 @@ const Bash = {
       git pull
       git checkout -b ${branch}
       git push --set-upstream origin ${branch}
-
     fi
 
     # 3. env change(eg: change node version to 16.15.1 when current node version is 14.19.3)
